@@ -29,10 +29,11 @@ const Popup = () => {
           Learn React!
         </a>
         <button
-          style={{
-            backgroundColor: theme === 'light' ? '#fff' : '#000',
-            color: theme === 'light' ? '#000' : '#fff',
-          }}
+          // style={{
+          //   backgroundColor: theme === 'light' ? '#fff' : '#000',
+          //   color: theme === 'light' ? '#000' : '#fff',
+          // }}
+          className="bg-red-500"
           onClick={exampleThemeStorage.toggle}>
           Toggle theme
         </button>
