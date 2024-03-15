@@ -5,5 +5,5 @@ export default function App() {
     console.log('content view loaded');
   }, []);
 
-  return <div className="">content view</div>;
+  return <div className="bg-red-500 text-red p-2 absolute right-0 bottom-0 z-50">content view</div>;
 }
