@@ -1,40 +1,48 @@
-import React from 'react';
-import logo from '@assets/img/logo.svg';
+import { useEffect, useState } from 'react';
 import '@pages/sidepanel/SidePanel.css';
-import useStorage from '@src/shared/hooks/useStorage';
-import exampleThemeStorage from '@src/shared/storages/exampleThemeStorage';
 import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
+import { API_URL } from '@root/utils/constants';
 
 const SidePanel = () => {
-  const theme = useStorage(exampleThemeStorage);
+  const [isAuth, setIsAuth] = useState(false);
+  const getIsAuth = async () =>
+    await chrome.runtime.sendMessage(
+      { action: 'getCookie', details: { url: 'http://localhost:3000/', name: 'authjs.session-token' } },
+      authCookie => {
+        setIsAuth(!!authCookie.cookieValue);
+      },
+    );
+
+  useEffect(() => {
+    getIsAuth();
+  }, []);
+
+  const handleClick = async () => {
+    console.log('button clicked');
+
+    const data = await fetch(`${API_URL}/api/jobBoards`, {
+      credentials: 'include', // This will send cookies even for requests to a different domain
+    }).then(response => response.json());
+
+    console.log({ data });
+  };
 
   return (
-    <div
-      className="App"
-      style={{
-        backgroundColor: theme === 'light' ? '#fff' : '#000',
-      }}>
-      <header className="App-header" style={{ color: theme === 'light' ? '#000' : '#fff' }}>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/sidepanel/SidePanel.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: theme === 'light' && '#0281dc', marginBottom: '10px' }}>
-          Learn React!
-        </a>
-        <button
-          style={{
-            backgroundColor: theme === 'light' ? '#fff' : '#000',
-            color: theme === 'light' ? '#000' : '#fff',
-          }}
-          onClick={exampleThemeStorage.toggle}>
-          Toggle theme
+    <div className="App">
+      <header className="App-header">
+        <div>Is auth: {isAuth.toString()}</div>
+        {!isAuth && (
+          <button
+            onClick={() => {
+              window.open(`${API_URL}/auth/login`, '_blank');
+              window.close();
+            }}>
+            Login
+          </button>
+        )}
+        <button type="button" className="bg-blue-500" onClick={handleClick}>
+          Fetch data
         </button>
       </header>
     </div>
