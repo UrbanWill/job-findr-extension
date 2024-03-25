@@ -3,14 +3,12 @@ import '@pages/sidepanel/SidePanel.css';
 import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { API_URL } from '@root/utils/constants';
-import { useGetJobBoards } from '../hooks/useGetJobBoards';
+import { useGetJobBoards } from '@src/shared/hooks/useGetJobBoards';
 
 const SidePanel = () => {
   const [isAuth, setIsAuth] = useState(false);
 
   const { data: jobBoards } = useGetJobBoards();
-
-  console.log({ jobBoards });
 
   const getIsAuth = async () =>
     await chrome.runtime.sendMessage(
