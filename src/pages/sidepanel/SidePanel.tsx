@@ -3,9 +3,15 @@ import '@pages/sidepanel/SidePanel.css';
 import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { API_URL } from '@root/utils/constants';
+import { useGetJobBoards } from '../hooks/useGetJobBoards';
 
 const SidePanel = () => {
   const [isAuth, setIsAuth] = useState(false);
+
+  const { data: jobBoards } = useGetJobBoards();
+
+  console.log({ jobBoards });
+
   const getIsAuth = async () =>
     await chrome.runtime.sendMessage(
       { action: 'getCookie', details: { url: 'http://localhost:3000/', name: 'authjs.session-token' } },
@@ -17,16 +23,6 @@ const SidePanel = () => {
   useEffect(() => {
     getIsAuth();
   }, []);
-
-  const handleClick = async () => {
-    console.log('button clicked');
-
-    const data = await fetch(`${API_URL}/api/jobBoards`, {
-      credentials: 'include', // This will send cookies even for requests to a different domain
-    }).then(response => response.json());
-
-    console.log({ data });
-  };
 
   return (
     <div className="App">
@@ -41,9 +37,7 @@ const SidePanel = () => {
             Login
           </button>
         )}
-        <button type="button" className="bg-blue-500" onClick={handleClick}>
-          Fetch data
-        </button>
+        {jobBoards && jobBoards?.map((jobBoard: any) => <div key={jobBoard.id}>{jobBoard.name}</div>)}
       </header>
     </div>
   );
