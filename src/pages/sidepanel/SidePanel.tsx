@@ -1,26 +1,14 @@
-import { useEffect, useState } from 'react';
 import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { API_URL } from '@root/utils/constants';
 import { useGetJobBoards } from '@src/shared/hooks/useGetJobBoards';
 import { Button } from '@/components/ui/button';
+import { useAuthContext } from '@/shared/hooks/useAuthContext';
 
 const SidePanel = () => {
-  const [isAuth, setIsAuth] = useState(false);
-
   const { data: jobBoards } = useGetJobBoards();
 
-  const getIsAuth = async () =>
-    await chrome.runtime.sendMessage(
-      { action: 'getCookie', details: { url: 'http://localhost:3000/', name: 'authjs.session-token' } },
-      authCookie => {
-        setIsAuth(!!authCookie.cookieValue);
-      },
-    );
-
-  useEffect(() => {
-    getIsAuth();
-  }, []);
+  const { isAuth } = useAuthContext();
 
   return (
     <div>
