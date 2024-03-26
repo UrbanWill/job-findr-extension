@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import '@pages/sidepanel/SidePanel.css';
 import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { API_URL } from '@root/utils/constants';
@@ -23,9 +22,9 @@ const SidePanel = () => {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div>Is auth: {isAuth.toString()}</div>
+    <div>
+      <header>
+        <div className="bg-red-500">Is auth: {isAuth.toString()}</div>
         {!isAuth && (
           <button
             onClick={() => {
