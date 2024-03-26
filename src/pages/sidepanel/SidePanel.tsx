@@ -3,6 +3,7 @@ import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { API_URL } from '@root/utils/constants';
 import { useGetJobBoards } from '@src/shared/hooks/useGetJobBoards';
+import { Button } from '@/components/ui/button';
 
 const SidePanel = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -26,13 +27,13 @@ const SidePanel = () => {
       <header>
         <div className="bg-red-500">Is auth: {isAuth.toString()}</div>
         {!isAuth && (
-          <button
+          <Button
             onClick={() => {
               window.open(`${API_URL}/auth/login`, '_blank');
               window.close();
             }}>
             Login
-          </button>
+          </Button>
         )}
         {jobBoards && jobBoards?.map((jobBoard: any) => <div key={jobBoard.id}>{jobBoard.name}</div>)}
       </header>
