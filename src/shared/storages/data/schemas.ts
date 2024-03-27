@@ -8,3 +8,5 @@ export const JobBoardSchema = z.object({
 });
 
 export const JobBoardsSchema = z.array(JobBoardSchema);
+
+export type JobBoardType = z.infer<typeof JobBoardSchema>;

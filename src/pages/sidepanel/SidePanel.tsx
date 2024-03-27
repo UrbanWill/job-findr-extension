@@ -2,11 +2,12 @@ import withSuspense from '@src/shared/hoc/withSuspense';
 import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { useAuthContext } from '@/shared/hooks/useAuthContext';
 import Login from '@/components/login';
+import Content from '@/components/content';
 
 const SidePanel = () => {
   const { isAuth } = useAuthContext();
 
-  return <>{isAuth ? <div>Content</div> : <Login />}</>;
+  return <>{isAuth ? <Content /> : <Login />}</>;
 };
 
 export default withErrorBoundary(withSuspense(SidePanel, <div> Loading ... </div>), <div> Error Occur </div>);
