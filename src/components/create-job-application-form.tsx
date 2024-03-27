@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
+import { Textarea } from './ui/textarea';
 
 export default function CreateJobApplicationForm() {
   const [isPending, startTransition] = useTransition();
@@ -38,78 +39,75 @@ export default function CreateJobApplicationForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="space-y-4">
-          <FormField
-            control={form.control}
-            name="companyName"
-            render={({ field }) => (
-              <FormItem>
-                <div className="space-y-2">
-                  <FormLabel>Company name</FormLabel>
-                  <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="Company name" />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="jobTitle"
-            render={({ field }) => (
-              <FormItem>
-                <div className="space-y-2">
-                  <FormLabel>Job title</FormLabel>
-                  <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="Job title" />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="jobDescription"
-            render={({ field }) => (
-              <FormItem>
-                <div className="space-y-2">
-                  <FormLabel>Job description</FormLabel>
-                  <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="Job description" />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="jobBoardId"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <DropdownMenuRadioMenu
-                    selectedValue={field.value}
-                    onHandleChange={field.onChange}
-                    buttonLabel={jobBoards?.find(jobBoard => jobBoard.id === field.value)?.name ?? 'Select job board'}
-                    label="Select job board"
-                    options={
-                      jobBoards?.map(jobBoard => ({
-                        value: jobBoard.id,
-                        label: jobBoard.name,
-                      })) ?? []
-                    }
-                    isLoading={isLoading}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col min-h-full flex-grow space-y-6">
+        <FormField
+          control={form.control}
+          name="companyName"
+          render={({ field }) => (
+            <FormItem className="space-y-2">
+              <FormLabel>Company name</FormLabel>
+              <FormControl>
+                <Input {...field} disabled={isPending} placeholder="Company name" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="jobTitle"
+          render={({ field }) => (
+            <FormItem className="space-y-2">
+              <FormLabel>Job title</FormLabel>
+              <FormControl>
+                <Input {...field} disabled={isPending} placeholder="Job title" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="jobDescription"
+          render={({ field }) => (
+            <FormItem className="flex flex-col flex-grow space-y-2">
+              <FormLabel>Job description</FormLabel>
+              <FormControl className="flex-grow">
+                <Textarea
+                  {...field}
+                  disabled={isPending}
+                  placeholder="Job description"
+                  className="resize-none h-full"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="jobBoardId"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <DropdownMenuRadioMenu
+                  selectedValue={field.value}
+                  onHandleChange={field.onChange}
+                  buttonLabel={jobBoards?.find(jobBoard => jobBoard.id === field.value)?.name ?? 'Select job board'}
+                  label="Select job board"
+                  options={
+                    jobBoards?.map(jobBoard => ({
+                      value: jobBoard.id,
+                      label: jobBoard.name,
+                    })) ?? []
+                  }
+                  isLoading={isLoading}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button disabled={isPending} type="submit">
           Create job application
         </Button>
