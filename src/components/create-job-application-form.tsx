@@ -1,8 +1,9 @@
-import { useTransition, useState } from 'react';
+import { useTransition, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useGetJobBoards } from '@/shared/hooks/useGetJobBoards';
+import { useGetJobBoardLists } from '@/shared/hooks/useGetJobBoardLists';
 import { JobApplicationFormSchema } from '@/shared/schemas/form-schemas';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -12,12 +13,7 @@ import { Textarea } from './ui/textarea';
 
 export default function CreateJobApplicationForm() {
   const [isPending, startTransition] = useTransition();
-  const [selectedJobList, setSelectedJobList] = useState<string | null>('clu9h5w33004f3plbp8pjprz9');
-  const { data: jobBoards, isLoading } = useGetJobBoards();
-
-  const createJobApplication = async (values: z.output<typeof JobApplicationFormSchema>) => {
-    console.log({ values });
-  };
+  const { data: jobBoards, isLoading: isJobBoardsLoading } = useGetJobBoards();
 
   const form = useForm<z.output<typeof JobApplicationFormSchema>>({
     resolver: zodResolver(JobApplicationFormSchema),
@@ -26,9 +22,24 @@ export default function CreateJobApplicationForm() {
       jobTitle: '',
       jobDescription: '',
       jobBoardId: jobBoards?.[jobBoards.length - 1]?.id ?? '',
-      jobBoardListId: selectedJobList ?? '',
+      jobBoardListId: '',
     },
   });
+
+  const selectedJobBoardId = form.watch('jobBoardId');
+
+  const { data: jobBoardLists, isLoading: jobBoardListsLoading } = useGetJobBoardLists({
+    isEnabled: !!jobBoards,
+    jobBoardId: selectedJobBoardId,
+  });
+
+  useEffect(() => {
+    form.setValue('jobBoardListId', jobBoardLists?.[0]?.id ?? '');
+  }, [selectedJobBoardId, jobBoardLists]);
+
+  const createJobApplication = async (values: z.output<typeof JobApplicationFormSchema>) => {
+    console.log({ values });
+  };
 
   const onSubmit = (values: z.output<typeof JobApplicationFormSchema>) => {
     console.log('Submitted form');
@@ -84,30 +95,61 @@ export default function CreateJobApplicationForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="jobBoardId"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <DropdownMenuRadioMenu
-                  selectedValue={field.value}
-                  onHandleChange={field.onChange}
-                  buttonLabel={jobBoards?.find(jobBoard => jobBoard.id === field.value)?.name ?? 'Select job board'}
-                  label="Select job board"
-                  options={
-                    jobBoards?.map(jobBoard => ({
-                      value: jobBoard.id,
-                      label: jobBoard.name,
-                    })) ?? []
-                  }
-                  isLoading={isLoading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex gap-4">
+          <FormField
+            control={form.control}
+            name="jobBoardId"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormControl>
+                  <DropdownMenuRadioMenu
+                    triggerClassName="w-full"
+                    selectedValue={field.value}
+                    onHandleChange={(value: string) => {
+                      field.onChange(value);
+                      form.setValue('jobBoardListId', '');
+                    }}
+                    buttonLabel={jobBoards?.find(jobBoard => jobBoard.id === field.value)?.name ?? 'Select job board'}
+                    label="Select job board"
+                    options={
+                      jobBoards?.map(jobBoard => ({
+                        value: jobBoard.id,
+                        label: jobBoard.name,
+                      })) ?? []
+                    }
+                    isLoading={isJobBoardsLoading}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="jobBoardListId"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormControl>
+                  <DropdownMenuRadioMenu
+                    triggerClassName="w-full"
+                    selectedValue={field.value}
+                    onHandleChange={field.onChange}
+                    buttonLabel={jobBoardLists?.find(list => list.id === field.value)?.name ?? 'Select job list'}
+                    label="Select job list"
+                    options={
+                      jobBoardLists?.map(list => ({
+                        value: list.id,
+                        label: list.name,
+                      })) ?? []
+                    }
+                    isLoading={jobBoardListsLoading}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <Button disabled={isPending} type="submit">
           Create job application
         </Button>
