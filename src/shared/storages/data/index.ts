@@ -19,11 +19,15 @@ const jobBoardsStorage: JobBoardStorage = {
   },
 };
 
-type JobBoardListStorage = BaseStorage<JobBoardListType[] | null> & {
-  update: (jobBoards: JobBoardListType[]) => Promise<void>;
+// Note: This is method if caching data in local storage is meant to work with react-query
+// therefore, keep 'queryKey' in mind when using and extending this method
+type JobBoardListStorageRecord = Record<string, JobBoardListType[] | null>;
+
+type JobBoardListStorage = BaseStorage<JobBoardListStorageRecord | null> & {
+  update: (jobBoards: JobBoardListStorageRecord) => Promise<void>;
 };
 
-const jobBoardLists = createStorage<JobBoardListType[] | null>(JOB_BOARD_LISTS, null, {
+const jobBoardLists = createStorage<JobBoardListStorageRecord | null>(JOB_BOARD_LISTS, null, {
   storageType: StorageType.Local,
   liveUpdate: true,
 });

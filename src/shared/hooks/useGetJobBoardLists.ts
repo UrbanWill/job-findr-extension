@@ -8,6 +8,7 @@ import { useAuthContext } from './useAuthContext';
 
 export const useGetJobBoardLists = ({ isEnabled, jobBoardId }: { isEnabled: boolean; jobBoardId: string }) => {
   const jobBoardsCache = useStorage(jobBoardListsStorage);
+  const initialData = useStorage(jobBoardListsStorage)?.[jobBoardId] ?? [];
   const { isAuth } = useAuthContext();
 
   const fetchJobBoardList = async () => {
@@ -17,7 +18,7 @@ export const useGetJobBoardLists = ({ isEnabled, jobBoardId }: { isEnabled: bool
 
     const validatedFields = JobBoardListsSchema.parse(data);
 
-    jobBoardListsStorage.update(validatedFields);
+    jobBoardListsStorage.update({ ...jobBoardsCache, [jobBoardId]: validatedFields });
 
     return validatedFields;
   };
@@ -25,7 +26,7 @@ export const useGetJobBoardLists = ({ isEnabled, jobBoardId }: { isEnabled: bool
   const query = useQuery({
     queryKey: [JOB_BOARD_LISTS, jobBoardId],
     queryFn: fetchJobBoardList,
-    initialData: jobBoardsCache,
+    initialData: initialData,
     enabled: isAuth && isEnabled,
   });
 
