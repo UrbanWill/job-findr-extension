@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
-import { Textarea } from './ui/textarea';
+import { Textarea } from '../../../components/ui/textarea';
 import { useCreateJobApplication } from '@/shared/hooks/useCreateJobApplication';
 
 export default function CreateJobApplicationForm() {
