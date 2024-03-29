@@ -15,3 +15,5 @@ export const JobApplicationFormSchema = z.object({
   jobBoardId: z.string().min(1, { message: 'Board ID is required!' }),
   jobBoardListId: z.string().min(1, { message: 'List ID is required!' }),
 });
+
+export type JobApplicationFormType = z.infer<typeof JobApplicationFormSchema>;
