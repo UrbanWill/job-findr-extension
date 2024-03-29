@@ -4,7 +4,6 @@ import { JobApplicationFormType } from '@/shared/schemas/form-schemas';
 
 export const useCreateJobApplication = () => {
   const fetchJobBoardList = async (formData: JobApplicationFormType) => {
-    console.log({ formData });
     const { data } = await fetch(`${API_URL}/api/jobApplication`, {
       method: 'POST',
       credentials: 'include', // This will send cookies even for requests to a different domain

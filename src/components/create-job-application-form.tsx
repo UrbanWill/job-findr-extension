@@ -10,10 +10,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
 import { Textarea } from './ui/textarea';
+import { useCreateJobApplication } from '@/shared/hooks/useCreateJobApplication';
 
 export default function CreateJobApplicationForm() {
-  const [isPending, startTransition] = useTransition();
   const { data: jobBoards, isLoading: isJobBoardsLoading } = useGetJobBoards();
+  const { mutate: createJobApplication, isPending } = useCreateJobApplication();
 
   const form = useForm<z.output<typeof JobApplicationFormSchema>>({
     resolver: zodResolver(JobApplicationFormSchema),
@@ -37,15 +38,8 @@ export default function CreateJobApplicationForm() {
     form.setValue('jobBoardListId', jobBoardLists?.[0]?.id ?? '');
   }, [selectedJobBoardId, jobBoardLists]);
 
-  const createJobApplication = async (values: z.output<typeof JobApplicationFormSchema>) => {
-    console.log({ values });
-  };
-
   const onSubmit = (values: z.output<typeof JobApplicationFormSchema>) => {
-    console.log('Submitted form');
-    startTransition(() => {
-      createJobApplication(values);
-    });
+    createJobApplication(values);
   };
 
   return (
