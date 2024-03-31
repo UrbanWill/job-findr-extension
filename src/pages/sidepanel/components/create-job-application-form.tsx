@@ -12,9 +12,15 @@ import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
 import { Textarea } from '../../../components/ui/textarea';
 import { useCreateJobApplication } from '@/shared/hooks/useCreateJobApplication';
 
-export default function CreateJobApplicationForm() {
+interface CreateJobApplicationFormProps {
+  setContent: (content: 'form' | 'success') => void;
+}
+
+export default function CreateJobApplicationForm({ setContent }: CreateJobApplicationFormProps) {
   const { data: jobBoards, isLoading: isJobBoardsLoading } = useGetJobBoards();
-  const { mutate: createJobApplication, isPending } = useCreateJobApplication();
+  const { mutate: createJobApplication, isPending } = useCreateJobApplication({
+    handleSuccess: () => setContent('success'),
+  });
 
   const form = useForm<z.output<typeof JobApplicationFormSchema>>({
     resolver: zodResolver(JobApplicationFormSchema),

@@ -2,7 +2,7 @@ import { API_URL } from '@root/utils/constants';
 import { useMutation } from '@tanstack/react-query';
 import { JobApplicationFormType } from '@/shared/schemas/form-schemas';
 
-export const useCreateJobApplication = () => {
+export const useCreateJobApplication = ({ handleSuccess }: { handleSuccess: () => void }) => {
   const fetchJobBoardList = async (formData: JobApplicationFormType) => {
     const { data } = await fetch(`${API_URL}/api/jobApplication`, {
       method: 'POST',
@@ -15,6 +15,9 @@ export const useCreateJobApplication = () => {
 
   const query = useMutation({
     mutationFn: fetchJobBoardList,
+    onSuccess: () => {
+      handleSuccess();
+    },
   });
 
   return query;
