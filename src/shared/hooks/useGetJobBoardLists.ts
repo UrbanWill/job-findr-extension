@@ -1,14 +1,17 @@
 import { API_URL } from '@root/utils/constants';
 import { useQuery } from '@tanstack/react-query';
 import useStorage from '@src/shared/hooks/useStorage';
-import { jobBoardListsStorage } from '@src/shared/storages/data';
+import { jobBoardListsStorage, jobBoardsStorage } from '@src/shared/storages/data';
 import { JOB_BOARD_LISTS } from '@root/utils/query-keys';
 import { JobBoardListsSchema } from '../storages/data/schemas';
 import { useAuthContext } from './useAuthContext';
 
-export const useGetJobBoardLists = ({ isEnabled, jobBoardId }: { isEnabled: boolean; jobBoardId: string }) => {
-  const jobBoardsCache = useStorage(jobBoardListsStorage);
-  const initialData = useStorage(jobBoardListsStorage)?.[jobBoardId] ?? [];
+export const useGetJobBoardLists = ({ jobBoardId }: { jobBoardId: string }) => {
+  const jobBoardListsCache = useStorage(jobBoardListsStorage);
+  const jobBoardsCache = useStorage(jobBoardsStorage);
+  const latestJobBoardId = jobBoardsCache?.[jobBoardsCache.length - 1]?.id ?? '';
+  // Note: There is a race condition issue here in the first render, where the jobBoardId is not yet available. Hence the reason to use the latestJobBoardId from cache as a fallback.
+  const initialData = useStorage(jobBoardListsStorage)?.[jobBoardId || latestJobBoardId] ?? [];
   const { isAuth } = useAuthContext();
 
   const fetchJobBoardList = async () => {
@@ -18,7 +21,7 @@ export const useGetJobBoardLists = ({ isEnabled, jobBoardId }: { isEnabled: bool
 
     const validatedFields = JobBoardListsSchema.parse(data);
 
-    jobBoardListsStorage.update({ ...jobBoardsCache, [jobBoardId]: validatedFields });
+    jobBoardListsStorage.update({ ...jobBoardListsCache, [jobBoardId]: validatedFields });
 
     return validatedFields;
   };
@@ -27,7 +30,7 @@ export const useGetJobBoardLists = ({ isEnabled, jobBoardId }: { isEnabled: bool
     queryKey: [JOB_BOARD_LISTS, jobBoardId],
     queryFn: fetchJobBoardList,
     initialData: initialData,
-    enabled: isAuth && isEnabled,
+    enabled: isAuth && !!jobBoardId,
   });
 
   return query;
