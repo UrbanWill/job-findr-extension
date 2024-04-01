@@ -23,7 +23,7 @@ export default function Content() {
 
   const contentRenderer: Record<typeof content, JSX.Element> = {
     form: <CreateJobApplicationForm setContent={setContent} form={form} />,
-    success: <CreateJobApplicationSuccess />,
+    success: <CreateJobApplicationSuccess form={form} />,
   };
 
   return <div className="w-full">{contentRenderer[content]}</div>;

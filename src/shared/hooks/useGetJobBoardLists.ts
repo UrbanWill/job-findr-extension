@@ -11,7 +11,7 @@ export const useGetJobBoardLists = ({ jobBoardId }: { jobBoardId: string }) => {
   const jobBoardsCache = useStorage(jobBoardsStorage);
   const latestJobBoardId = jobBoardsCache?.[jobBoardsCache.length - 1]?.id ?? '';
   // Note: There is a race condition issue here in the first render, where the jobBoardId is not yet available. Hence the reason to use the latestJobBoardId from cache as a fallback.
-  const initialData = useStorage(jobBoardListsStorage)?.[jobBoardId || latestJobBoardId] ?? [];
+  const initialData = jobBoardListsCache?.[jobBoardId || latestJobBoardId] ?? [];
   const { isAuth } = useAuthContext();
 
   const fetchJobBoardList = async () => {
