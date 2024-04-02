@@ -56,6 +56,19 @@ export default function CreateJobApplicationForm({ setContent, form }: CreateJob
         />
         <FormField
           control={form.control}
+          name="jobUrl"
+          render={({ field }) => (
+            <FormItem className="space-y-2">
+              <FormLabel>Job Url</FormLabel>
+              <FormControl>
+                <Input {...field} disabled={isPending} placeholder="Job url" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="jobDescription"
           render={({ field }) => (
             <FormItem className="flex flex-col flex-grow space-y-2">

@@ -23,3 +23,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true; // Indicates you wish to send a response asynchronously
   }
 });
+
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  if (changeInfo.url) {
+    chrome.runtime.sendMessage({ type: 'URL_CHANGE', url: changeInfo.url });
+  }
+});
+
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  chrome.tabs.get(activeInfo.tabId, function (tab) {
+    chrome.runtime.sendMessage({ type: 'TAB_SWITCH', url: tab.url });
+  });
+});
