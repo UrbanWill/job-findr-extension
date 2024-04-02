@@ -22,11 +22,13 @@ export default function Content() {
     },
   });
 
-  const handleMessage = (request: { type: 'URL_CHANGE' | 'TAB_SWITCH'; url: string }) => {
+  const handleMessage = (request: { type: 'URL_CHANGE' | 'TAB_SWITCH'; url: string; text: string }) => {
     if (request.type === 'URL_CHANGE') {
       form.setValue('jobUrl', request.url);
     } else if (request.type === 'TAB_SWITCH') {
       form.setValue('jobUrl', request.url);
+    } else if (request.type === 'highlightedText') {
+      form.setValue('jobDescription', request.text);
     }
   };
 

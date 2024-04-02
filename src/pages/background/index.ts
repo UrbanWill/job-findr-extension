@@ -20,6 +20,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         sendResponse({ cookieValue: null });
       }
     });
+    if (request.type === 'highlightedText') {
+      chrome.runtime.sendMessage({ type: 'highlightedText', text: request.text });
+    }
     return true; // Indicates you wish to send a response asynchronously
   }
 });
