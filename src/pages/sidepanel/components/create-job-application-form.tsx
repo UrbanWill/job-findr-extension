@@ -12,9 +12,10 @@ import JobListFormField from './job-list-form-field';
 interface CreateJobApplicationFormProps {
   form: UseFormReturn<z.output<typeof JobApplicationFormSchema>>;
   setContent: (content: 'form' | 'success') => void;
+  focusedFieldRef: React.MutableRefObject<keyof z.output<typeof JobApplicationFormSchema>>;
 }
 
-export default function CreateJobApplicationForm({ setContent, form }: CreateJobApplicationFormProps) {
+export default function CreateJobApplicationForm({ setContent, form, focusedFieldRef }: CreateJobApplicationFormProps) {
   const { mutate: createJobApplication, isPending } = useCreateJobApplication({
     handleSuccess: () => setContent('success'),
   });
@@ -23,6 +24,10 @@ export default function CreateJobApplicationForm({ setContent, form }: CreateJob
 
   const onSubmit = (values: z.output<typeof JobApplicationFormSchema>) => {
     createJobApplication(values);
+  };
+
+  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    focusedFieldRef.current = e.target.name as keyof z.output<typeof JobApplicationFormSchema>;
   };
 
   return (
@@ -35,7 +40,7 @@ export default function CreateJobApplicationForm({ setContent, form }: CreateJob
             <FormItem className="space-y-2">
               <FormLabel>Company name</FormLabel>
               <FormControl>
-                <Input {...field} disabled={isPending} placeholder="Company name" />
+                <Input {...field} disabled={isPending} placeholder="Company name" onFocus={handleFocus} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -48,7 +53,7 @@ export default function CreateJobApplicationForm({ setContent, form }: CreateJob
             <FormItem className="space-y-2">
               <FormLabel>Job title</FormLabel>
               <FormControl>
-                <Input {...field} disabled={isPending} placeholder="Job title" />
+                <Input {...field} disabled={isPending} placeholder="Job title" onFocus={handleFocus} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,6 +84,7 @@ export default function CreateJobApplicationForm({ setContent, form }: CreateJob
                   disabled={isPending}
                   placeholder="Job description"
                   className="resize-none h-full"
+                  onFocus={handleFocus}
                 />
               </FormControl>
               <FormMessage />
