@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { UseFormReturn } from 'react-hook-form';
 import { JobApplicationFormSchema } from '@/shared/schemas/form-schemas';
 import { useGetJobBoards } from '@/shared/hooks/useGetJobBoards';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
 
 interface JobBoardFormFieldProps {
@@ -39,7 +39,7 @@ export default function JobBoardFormField({ form, selectedJobBoardId }: JobBoard
               options={
                 jobBoards?.map(jobBoard => ({
                   value: jobBoard.id,
-                  label: jobBoard.name,
+                  label: jobBoard.name
                 })) ?? []
               }
               isLoading={isJobBoardsLoading}

@@ -3,7 +3,7 @@ import { API_URL } from '@root/utils/constants';
 
 const SESSION_TOKEN = 'authjs.session-token';
 
-export default function isAuth() {
+export default function useIsAuth() {
   const [isAuth, setIsAuth] = useState(false);
 
   const getIsAuth = async () =>
@@ -11,7 +11,7 @@ export default function isAuth() {
       { action: 'getCookie', details: { url: API_URL, name: SESSION_TOKEN } },
       authCookie => {
         setIsAuth(!!authCookie.cookieValue);
-      },
+      }
     );
 
   useEffect(() => {

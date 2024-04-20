@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
   if (changeInfo.url) {
     chrome.runtime.sendMessage({ type: 'URL_CHANGE', url: changeInfo.url });
   }

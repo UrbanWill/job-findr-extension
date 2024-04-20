@@ -29,7 +29,8 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react/prop-types": "off"
   },
   "globals": {
     "chrome": "readonly"
