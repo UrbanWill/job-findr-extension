@@ -1,5 +1,7 @@
-const isProd = process.env.NODE_ENV === 'production';
-const DEV_API_URL = 'http://localhost:3000';
-const PROD_API_URL = 'http://google.com'; // TODO: Update with prod URL
+const isDev = process.env.NODE_ENV === 'development';
 
-export const API_URL = isProd ? PROD_API_URL : DEV_API_URL;
+const DEV_API_URL = 'http://localhost:3000';
+const PROD_API_URL = 'https://www.jobtrackr.co';
+
+export const API_URL = isDev ? DEV_API_URL : PROD_API_URL;
+export const SESSION_TOKEN = isDev ? 'authjs.session-token' : '__Secure-authjs.session-token';

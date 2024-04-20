@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { API_URL } from '@root/utils/constants';
-
-const SESSION_TOKEN = 'authjs.session-token';
+import { API_URL, SESSION_TOKEN } from '@root/utils/constants';
 
 export default function useIsAuth() {
   const [isAuth, setIsAuth] = useState(false);

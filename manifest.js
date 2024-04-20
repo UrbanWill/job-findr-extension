@@ -16,7 +16,7 @@ const manifest = {
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
   permissions: ['storage', 'sidePanel', 'cookies', 'webRequest', 'tabs', 'activeTab'],
-  host_permissions: ['<all_urls>', '*://*.google.com/', '*://*.localhost.com/'],
+  host_permissions: ['<all_urls>', '*://*.google.com/', '*://*.localhost.com/', '*://*.jobtrackr.co/'],
   side_panel: {
     default_path: 'src/pages/sidepanel/index.html'
   },
