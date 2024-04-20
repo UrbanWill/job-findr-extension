@@ -17,7 +17,7 @@ export default function watchRebuild(config: { afterWriteBundle: () => void }): 
       sendNextQueue(() => {
         config.afterWriteBundle();
       });
-    },
+    }
   };
 }
 

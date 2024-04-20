@@ -13,7 +13,7 @@ interface JobListFormFieldProps {
 
 export default function JobListFormField({ form, selectedJobBoardId }: JobListFormFieldProps) {
   const { data: jobBoardLists, isLoading: jobBoardListsLoading } = useGetJobBoardLists({
-    jobBoardId: selectedJobBoardId,
+    jobBoardId: selectedJobBoardId
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function JobListFormField({ form, selectedJobBoardId }: JobListFo
               options={
                 jobBoardLists?.map(list => ({
                   value: list.id,
-                  label: list.name,
+                  label: list.name
                 })) ?? []
               }
               isLoading={jobBoardListsLoading}

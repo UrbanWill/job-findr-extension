@@ -24,8 +24,8 @@ export default function inlineVitePreloadScript(): PluginOption {
       }
       return {
         code: __vitePreload + code.split(`\n`).slice(1).join(`\n`),
-        map: new MagicString(code).generateMap({ hires: true }),
+        map: new MagicString(code).generateMap({ hires: true })
       };
-    },
+    }
   };
 }

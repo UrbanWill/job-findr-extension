@@ -37,7 +37,7 @@ export default function addHmr(config: Config): PluginOption {
       if (id === getResolvedId(idInView)) {
         return view ? viewHmrCode : DUMMY_CODE;
       }
-    },
+    }
   };
 }
 

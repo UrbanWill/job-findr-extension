@@ -13,19 +13,19 @@ class ManifestParser {
 
   static convertToFirefoxCompatibleManifest(manifest: Manifest) {
     const manifestCopy = {
-      ...manifest,
+      ...manifest
     } as { [key: string]: unknown };
 
     manifestCopy.background = {
       scripts: [manifest.background?.service_worker],
-      type: 'module',
+      type: 'module'
     };
     manifestCopy.options_ui = {
       page: manifest.options_page,
-      browser_style: false,
+      browser_style: false
     };
     manifestCopy.content_security_policy = {
-      extension_pages: "script-src 'self'; object-src 'self'",
+      extension_pages: "script-src 'self'; object-src 'self'"
     };
     delete manifestCopy.options_page;
     return manifestCopy as Manifest;

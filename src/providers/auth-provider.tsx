@@ -6,7 +6,7 @@ interface AuthContextType {
 }
 
 const initialContextState: AuthContextType = {
-  isAuth: false,
+  isAuth: false
 };
 
 export const AuthContext = createContext<AuthContextType>(initialContextState);

@@ -13,7 +13,7 @@ const Popup = () => {
     <div
       className="App"
       style={{
-        backgroundColor: theme === 'light' ? '#fff' : '#000',
+        backgroundColor: theme === 'light' ? '#fff' : '#000'
       }}>
       <header className="App-header" style={{ color: theme === 'light' ? '#000' : '#fff' }}>
         <img src={logo} className="App-logo" alt="logo" />

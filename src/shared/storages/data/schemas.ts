@@ -4,7 +4,7 @@ export const JobBoardSchema = z.object({
   id: z.string(),
   userId: z.string(),
   name: z.string(),
-  createdAt: z.string(),
+  createdAt: z.string()
 });
 
 export const JobBoardsSchema = z.array(JobBoardSchema);
@@ -16,7 +16,7 @@ export const JobBoardListSchema = z.object({
   userId: z.string(),
   jobBoardId: z.string(),
   name: z.string(),
-  position: z.number(),
+  position: z.number()
 });
 
 export const JobBoardListsSchema = z.array(JobBoardListSchema);

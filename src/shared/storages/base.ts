@@ -22,7 +22,7 @@ export enum StorageType {
    * therefore need to restore their state. Set {@link SessionAccessLevel} for permitting content scripts access.
    * @implements Chromes [Session Storage](https://developer.chrome.com/docs/extensions/reference/storage/#property-session)
    */
-  Session = 'session',
+  Session = 'session'
 }
 
 /**
@@ -38,7 +38,7 @@ export enum SessionAccessLevel {
   /**
    * Storage can be accessed by both Extension pages and Content scripts.
    */
-  ExtensionPagesAndContentScripts = 'TRUSTED_AND_UNTRUSTED_CONTEXTS',
+  ExtensionPagesAndContentScripts = 'TRUSTED_AND_UNTRUSTED_CONTEXTS'
 }
 
 type ValueOrUpdate<D> = D | ((prev: D) => Promise<D> | D);
@@ -130,7 +130,7 @@ export function createStorage<D>(key: string, fallback: D, config?: StorageConfi
   ) {
     checkStoragePermission(storageType);
     chrome.storage[storageType].setAccessLevel({
-      accessLevel: SessionAccessLevel.ExtensionPagesAndContentScripts,
+      accessLevel: SessionAccessLevel.ExtensionPagesAndContentScripts
     });
     globalSessionAccessLevelFlag = true;
   }
@@ -192,6 +192,6 @@ export function createStorage<D>(key: string, fallback: D, config?: StorageConfi
     get: _getDataFromStorage,
     set,
     getSnapshot,
-    subscribe,
+    subscribe
   };
 }

@@ -8,7 +8,7 @@ type JobBoardStorage = BaseStorage<JobBoardType[] | null> & {
 
 const jobBoards = createStorage<JobBoardType[] | null>(JOB_BOARDS, null, {
   storageType: StorageType.Local,
-  liveUpdate: true,
+  liveUpdate: true
 });
 
 const jobBoardsStorage: JobBoardStorage = {
@@ -16,7 +16,7 @@ const jobBoardsStorage: JobBoardStorage = {
 
   update: async boards => {
     await jobBoards.set(boards);
-  },
+  }
 };
 
 // Note: This is method if caching data in local storage is meant to work with react-query
@@ -29,7 +29,7 @@ type JobBoardListStorage = BaseStorage<JobBoardListStorageRecord | null> & {
 
 const jobBoardLists = createStorage<JobBoardListStorageRecord | null>(JOB_BOARD_LISTS, null, {
   storageType: StorageType.Local,
-  liveUpdate: true,
+  liveUpdate: true
 });
 
 const jobBoardListsStorage: JobBoardListStorage = {
@@ -37,7 +37,7 @@ const jobBoardListsStorage: JobBoardListStorage = {
 
   update: async boards => {
     await jobBoardLists.set(boards);
-  },
+  }
 };
 
 export { jobBoardsStorage, jobBoardListsStorage };

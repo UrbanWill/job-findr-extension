@@ -51,6 +51,6 @@ export default function makeManifest(config?: { getCacheInvalidationKey?: () => 
       const invalidationKey = config.getCacheInvalidationKey?.();
       const manifest = await getManifestWithCacheBurst();
       makeManifest(manifest.default, distDir, invalidationKey);
-    },
+    }
   };
 }

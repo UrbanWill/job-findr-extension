@@ -14,7 +14,7 @@ const Newtab = () => {
     <div
       className="App"
       style={{
-        backgroundColor: theme === 'light' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'light' ? '#ffffff' : '#000000'
       }}>
       <header className="App-header" style={{ color: theme === 'light' ? '#000' : '#fff' }}>
         <img src={logo} className="App-logo" alt="logo" />
@@ -33,7 +33,7 @@ const Newtab = () => {
         <button
           style={{
             backgroundColor: theme === 'light' ? '#fff' : '#000',
-            color: theme === 'light' ? '#000' : '#fff',
+            color: theme === 'light' ? '#000' : '#fff'
           }}
           onClick={exampleThemeStorage.toggle}>
           Toggle theme

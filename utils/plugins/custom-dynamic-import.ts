@@ -11,13 +11,13 @@ export default function customDynamicImport(): PluginOption {
             const dynamicImport = (path) => import(path);
             dynamicImport(browser.runtime.getURL('./') + 
             `,
-          right: ".split('../').join(''))}",
+          right: ".split('../').join(''))}"
         };
       }
       return {
         left: 'import(',
-        right: ')',
+        right: ')'
       };
-    },
+    }
   };
 }

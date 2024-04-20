@@ -8,6 +8,6 @@ export default function addHmrIntoScript(watchPath: string) {
   initReloadClient({
     watchPath,
     onUpdate: reload,
-    onForceReload: reload,
+    onForceReload: reload
   });
 }

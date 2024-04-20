@@ -12,7 +12,7 @@ export const getPlugins = (isDev: boolean): PluginOption[] => [
   addHmr({ background: true, view: true, isDev }),
   isDev && watchRebuild({ afterWriteBundle: regenerateCacheInvalidationKey }),
   // For fix issue#177 (https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/issues/177)
-  inlineVitePreloadScript(),
+  inlineVitePreloadScript()
 ];
 
 const cacheInvalidationKeyRef = { current: generateKey() };

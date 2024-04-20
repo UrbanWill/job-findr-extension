@@ -16,7 +16,7 @@ export const useGetJobBoardLists = ({ jobBoardId }: { jobBoardId: string }) => {
 
   const fetchJobBoardList = async () => {
     const { data } = await fetch(`${API_URL}/api/jobBoardLists/${jobBoardId}`, {
-      credentials: 'include', // This will send cookies even for requests to a different domain
+      credentials: 'include' // This will send cookies even for requests to a different domain
     }).then(response => response.json());
 
     const validatedFields = JobBoardListsSchema.parse(data);
@@ -30,7 +30,7 @@ export const useGetJobBoardLists = ({ jobBoardId }: { jobBoardId: string }) => {
     queryKey: [JOB_BOARD_LISTS, jobBoardId],
     queryFn: fetchJobBoardList,
     initialData: initialData,
-    enabled: isAuth && !!jobBoardId,
+    enabled: isAuth && !!jobBoardId
   });
 
   return query;

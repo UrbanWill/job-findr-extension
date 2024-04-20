@@ -7,7 +7,7 @@ export const useCreateJobApplication = ({ handleSuccess }: { handleSuccess: () =
     const { data } = await fetch(`${API_URL}/api/jobApplication`, {
       method: 'POST',
       credentials: 'include', // This will send cookies even for requests to a different domain
-      body: JSON.stringify({ formData }),
+      body: JSON.stringify({ formData })
     }).then(response => response.json());
 
     return data;
@@ -17,7 +17,7 @@ export const useCreateJobApplication = ({ handleSuccess }: { handleSuccess: () =
     mutationFn: fetchJobBoardList,
     onSuccess: () => {
       handleSuccess();
-    },
+    }
   });
 
   return query;

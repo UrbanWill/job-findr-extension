@@ -17,7 +17,7 @@ interface CreateJobApplicationFormProps {
 
 export default function CreateJobApplicationForm({ setContent, form, focusedFieldRef }: CreateJobApplicationFormProps) {
   const { mutate: createJobApplication, isPending } = useCreateJobApplication({
-    handleSuccess: () => setContent('success'),
+    handleSuccess: () => setContent('success')
   });
 
   const selectedJobBoardId = form.watch('jobBoardId');

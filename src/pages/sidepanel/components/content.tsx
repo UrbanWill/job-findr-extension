@@ -21,8 +21,8 @@ export default function Content() {
       jobUrl: '',
       jobDescription: '',
       jobBoardId: '',
-      jobBoardListId: '',
-    },
+      jobBoardListId: ''
+    }
   });
 
   const handleTextSelection = (text: string) => {
@@ -58,7 +58,7 @@ export default function Content() {
 
   const contentRenderer: Record<typeof content, JSX.Element> = {
     form: <CreateJobApplicationForm setContent={setContent} form={form} focusedFieldRef={focusedFieldRef} />,
-    success: <CreateJobApplicationSuccess form={form} />,
+    success: <CreateJobApplicationSuccess form={form} />
   };
 
   return <div className="w-full">{contentRenderer[content]}</div>;

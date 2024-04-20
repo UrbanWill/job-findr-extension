@@ -7,7 +7,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 
 interface DropdownMenuRadioMenuProps {
@@ -27,7 +27,7 @@ export function DropdownMenuRadioMenu({
   buttonLabel,
   isLoading = false,
   onHandleChange,
-  triggerClassName = '',
+  triggerClassName = ''
 }: DropdownMenuRadioMenuProps) {
   return (
     <DropdownMenu>

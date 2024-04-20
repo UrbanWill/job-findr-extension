@@ -29,7 +29,7 @@ function initReloadServer() {
         if (needToForceReload) {
           needToForceReload = false;
           clientsThatNeedToUpdate.forEach((ws: WebSocket) =>
-            ws.send(MessageInterpreter.send({ type: 'force_reload' })),
+            ws.send(MessageInterpreter.send({ type: 'force_reload' }))
           );
         }
       }
@@ -42,7 +42,7 @@ const debounceSrc = debounce(function (path: string) {
   // Normalize path on Windows
   const pathConverted = path.replace(/\\/g, '/');
   clientsThatNeedToUpdate.forEach((ws: WebSocket) =>
-    ws.send(MessageInterpreter.send({ type: 'wait_update', path: pathConverted })),
+    ws.send(MessageInterpreter.send({ type: 'wait_update', path: pathConverted }))
   );
 }, 100);
 chokidar.watch('src', { ignorePermissionErrors: true }).on('all', (_, path) => debounceSrc(path));
