@@ -18,6 +18,7 @@ interface DropdownMenuRadioMenuProps {
   isLoading?: boolean;
   onHandleChange: (value: string) => void;
   triggerClassName?: string;
+  isDisabled?: boolean;
 }
 
 export function DropdownMenuRadioMenu({
@@ -26,6 +27,7 @@ export function DropdownMenuRadioMenu({
   label,
   buttonLabel,
   isLoading = false,
+  isDisabled = false,
   onHandleChange,
   triggerClassName = ''
 }: DropdownMenuRadioMenuProps) {
@@ -33,9 +35,11 @@ export function DropdownMenuRadioMenu({
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={triggerClassName}>
         {isLoading ? (
-          <ButtonLoading buttonLabel={buttonLabel} />
+          <ButtonLoading buttonLabel={buttonLabel} className={triggerClassName} />
         ) : (
-          <Button className={triggerClassName}>{buttonLabel}</Button>
+          <Button disabled={isDisabled} className={triggerClassName}>
+            {buttonLabel}
+          </Button>
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

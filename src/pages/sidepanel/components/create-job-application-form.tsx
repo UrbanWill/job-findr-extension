@@ -92,8 +92,8 @@ export default function CreateJobApplicationForm({ setContent, form, focusedFiel
           )}
         />
         <div className="flex gap-4">
-          <JobBoardFormField form={form} selectedJobBoardId={selectedJobBoardId} />
-          <JobListFormField form={form} selectedJobBoardId={selectedJobBoardId} />
+          <JobBoardFormField form={form} selectedJobBoardId={selectedJobBoardId} isPending={isPending} />
+          <JobListFormField form={form} selectedJobBoardId={selectedJobBoardId} isPending={isPending} />
         </div>
         <Button disabled={isPending} type="submit">
           Create job application

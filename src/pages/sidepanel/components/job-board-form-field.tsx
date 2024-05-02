@@ -3,22 +3,23 @@ import { z } from 'zod';
 import { UseFormReturn } from 'react-hook-form';
 import { JobApplicationFormSchema } from '@/shared/schemas/form-schemas';
 import { useGetJobBoards } from '@/shared/hooks/useGetJobBoards';
-import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { FormControl, FormField, FormLabel, FormItem, FormMessage } from '@/components/ui/form';
 import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
 
 interface JobBoardFormFieldProps {
   form: UseFormReturn<z.output<typeof JobApplicationFormSchema>>;
   selectedJobBoardId: string;
+  isPending: boolean;
 }
 
-export default function JobBoardFormField({ form, selectedJobBoardId }: JobBoardFormFieldProps) {
+export default function JobBoardFormField({ form, selectedJobBoardId, isPending }: JobBoardFormFieldProps) {
   const { data: jobBoards, isLoading: isJobBoardsLoading } = useGetJobBoards();
 
   useEffect(() => {
     if (jobBoards && !selectedJobBoardId) {
       form.setValue('jobBoardId', jobBoards?.[jobBoards.length - 1]?.id);
     }
-  }, [jobBoards]);
+  }, [form, jobBoards, selectedJobBoardId]);
 
   return (
     <FormField
@@ -26,6 +27,7 @@ export default function JobBoardFormField({ form, selectedJobBoardId }: JobBoard
       name="jobBoardId"
       render={({ field }) => (
         <FormItem className="w-1/2">
+          <FormLabel>Board</FormLabel>
           <FormControl>
             <DropdownMenuRadioMenu
               triggerClassName="w-full"
@@ -43,6 +45,7 @@ export default function JobBoardFormField({ form, selectedJobBoardId }: JobBoard
                 })) ?? []
               }
               isLoading={isJobBoardsLoading}
+              isDisabled={isPending}
             />
           </FormControl>
           <FormMessage />

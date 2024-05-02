@@ -3,15 +3,16 @@ import { z } from 'zod';
 import { UseFormReturn } from 'react-hook-form';
 import { JobApplicationFormSchema } from '@/shared/schemas/form-schemas';
 import { useGetJobBoardLists } from '@/shared/hooks/useGetJobBoardLists';
-import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { FormControl, FormField, FormLabel, FormItem, FormMessage } from '@/components/ui/form';
 import { DropdownMenuRadioMenu } from './shared/dropdown-radio-menu';
 
 interface JobListFormFieldProps {
   form: UseFormReturn<z.output<typeof JobApplicationFormSchema>>;
   selectedJobBoardId: string;
+  isPending: boolean;
 }
 
-export default function JobListFormField({ form, selectedJobBoardId }: JobListFormFieldProps) {
+export default function JobListFormField({ form, selectedJobBoardId, isPending }: JobListFormFieldProps) {
   const { data: jobBoardLists, isLoading: jobBoardListsLoading } = useGetJobBoardLists({
     jobBoardId: selectedJobBoardId
   });
@@ -30,6 +31,7 @@ export default function JobListFormField({ form, selectedJobBoardId }: JobListFo
       name="jobBoardListId"
       render={({ field }) => (
         <FormItem className="w-1/2">
+          <FormLabel>List</FormLabel>
           <FormControl>
             <DropdownMenuRadioMenu
               triggerClassName="w-full"
@@ -44,6 +46,7 @@ export default function JobListFormField({ form, selectedJobBoardId }: JobListFo
                 })) ?? []
               }
               isLoading={jobBoardListsLoading}
+              isDisabled={isPending}
             />
           </FormControl>
           <FormMessage />
