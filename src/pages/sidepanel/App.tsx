@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import SidePanel from './SidePanel';
 import SidePanelLayout from '../../components/ui/side-panel-layout.tsx';
 import { AuthContextProvider } from '@/providers/auth-provider';
+import { isDev } from '@root/utils/constants';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -12,7 +13,7 @@ export default function App() {
         <SidePanelLayout>
           <SidePanel />
         </SidePanelLayout>
-        <ReactQueryDevtools />
+        {isDev && <ReactQueryDevtools />}
       </AuthContextProvider>
     </QueryClientProvider>
   );
