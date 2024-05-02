@@ -24,7 +24,7 @@ const getManifestWithCacheBurst = (): Promise<{ default: chrome.runtime.Manifest
   return import(withCacheBurst(manifestFile));
 };
 
-export default function makeManifest(config?: { getCacheInvalidationKey?: () => string }): PluginOption {
+export default function makeManifest(config: { getCacheInvalidationKey?: () => string }): PluginOption {
   function makeManifest(manifest: chrome.runtime.ManifestV3, to: string, cacheKey?: string) {
     if (!fs.existsSync(to)) {
       fs.mkdirSync(to);
