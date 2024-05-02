@@ -22,6 +22,8 @@ export default function CreateJobApplicationForm({ setContent, form, focusedFiel
 
   const selectedJobBoardId = form.watch('jobBoardId');
 
+  const canSubmit = !isPending && form.formState.isValid;
+
   const onSubmit = (values: z.output<typeof JobApplicationFormSchema>) => {
     createJobApplication(values);
   };
@@ -95,7 +97,7 @@ export default function CreateJobApplicationForm({ setContent, form, focusedFiel
           <JobBoardFormField form={form} selectedJobBoardId={selectedJobBoardId} isPending={isPending} />
           <JobListFormField form={form} selectedJobBoardId={selectedJobBoardId} isPending={isPending} />
         </div>
-        <Button disabled={isPending} type="submit">
+        <Button disabled={isPending || !canSubmit} type="submit">
           Create job application
         </Button>
       </form>
