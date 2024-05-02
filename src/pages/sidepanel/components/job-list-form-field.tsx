@@ -16,9 +16,13 @@ export default function JobListFormField({ form, selectedJobBoardId }: JobListFo
     jobBoardId: selectedJobBoardId
   });
 
+  const selectedJobBoardListId = form.getValues('jobBoardListId');
+
   useEffect(() => {
-    form.setValue('jobBoardListId', jobBoardLists?.[0]?.id ?? '');
-  }, [selectedJobBoardId, jobBoardLists]);
+    if (!selectedJobBoardListId && jobBoardLists?.length > 0) {
+      form.setValue('jobBoardListId', jobBoardLists?.[0]?.id ?? '');
+    }
+  }, [selectedJobBoardId, jobBoardLists, form, selectedJobBoardListId]);
 
   return (
     <FormField
