@@ -27,6 +27,7 @@ export default function Content() {
 
   const handleTextSelection = (text: string) => {
     form.setValue(focusedFieldRef.current, text);
+    form.trigger(focusedFieldRef.current);
     if (focusedFieldRef.current !== 'jobDescription') {
       focusedFieldRef.current = fieldsToFocus[fieldsToFocus.indexOf(focusedFieldRef.current) + 1];
     }
