@@ -37,12 +37,12 @@ export default function CreateJobApplicationForm({ setContent, form, focusedFiel
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col min-h-full flex-grow space-y-6">
         <FormField
           control={form.control}
-          name="companyName"
+          name="jobTitle"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>Company name</FormLabel>
+              <FormLabel>Job title</FormLabel>
               <FormControl>
-                <Input {...field} disabled={isPending} placeholder="Company name" onFocus={handleFocus} />
+                <Input {...field} disabled={isPending} placeholder="Job title" onFocus={handleFocus} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -50,12 +50,12 @@ export default function CreateJobApplicationForm({ setContent, form, focusedFiel
         />
         <FormField
           control={form.control}
-          name="jobTitle"
+          name="companyName"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>Job title</FormLabel>
+              <FormLabel>Company name</FormLabel>
               <FormControl>
-                <Input {...field} disabled={isPending} placeholder="Job title" onFocus={handleFocus} />
+                <Input {...field} disabled={isPending} placeholder="Company name" onFocus={handleFocus} />
               </FormControl>
               <FormMessage />
             </FormItem>

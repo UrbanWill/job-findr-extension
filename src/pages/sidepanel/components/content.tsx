@@ -9,9 +9,9 @@ import { z } from 'zod';
 
 export default function Content() {
   const [content, setContent] = useState<'form' | 'success'>('form');
-  const focusedFieldRef = useRef<keyof JobApplicationFormType>('companyName');
+  const focusedFieldRef = useRef<keyof JobApplicationFormType>('jobTitle');
 
-  const fieldsToFocus: Array<keyof JobApplicationFormType> = ['companyName', 'jobTitle', 'jobDescription'];
+  const fieldsToFocus: Array<keyof JobApplicationFormType> = ['jobTitle', 'companyName', 'jobDescription'];
 
   const form = useForm<z.output<typeof JobApplicationFormSchema>>({
     resolver: zodResolver(JobApplicationFormSchema),
