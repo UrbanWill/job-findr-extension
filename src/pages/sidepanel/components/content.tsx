@@ -1,15 +1,26 @@
 import { useState, useEffect, useRef } from 'react';
 import CreateJobApplicationForm from './create-job-application-form';
 import CreateJobApplicationSuccess from './create-job-application-success';
+import CreateFirstBoard from './create-first-board';
 import { JobApplicationFormSchema, JobApplicationFormType } from '@/shared/schemas/form-schemas';
+import { useGetJobBoards } from '@/shared/hooks/useGetJobBoards';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 export default function Content() {
-  const [content, setContent] = useState<'form' | 'success'>('form');
+  const { data: jobBoards } = useGetJobBoards();
+  const [content, setContent] = useState<'form' | 'success' | 'createJobBoard'>(
+    jobBoards?.length ? 'form' : 'createJobBoard'
+  );
   const focusedFieldRef = useRef<keyof JobApplicationFormType>('jobTitle');
+
+  useEffect(() => {
+    if (jobBoards?.length) {
+      setContent('form');
+    }
+  }, [jobBoards]);
 
   const fieldsToFocus: Array<keyof JobApplicationFormType> = ['jobTitle', 'companyName', 'jobDescription'];
 
@@ -59,7 +70,8 @@ export default function Content() {
 
   const contentRenderer: Record<typeof content, JSX.Element> = {
     form: <CreateJobApplicationForm setContent={setContent} form={form} focusedFieldRef={focusedFieldRef} />,
-    success: <CreateJobApplicationSuccess form={form} />
+    success: <CreateJobApplicationSuccess form={form} />,
+    createJobBoard: <CreateFirstBoard />
   };
 
   return <div className="w-full">{contentRenderer[content]}</div>;
