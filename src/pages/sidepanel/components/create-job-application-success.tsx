@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import { API_URL } from '@root/utils/constants';
 import useStorage from '@/shared/hooks/useStorage';
 import { jobBoardListsStorage } from '@src/shared/storages/data';
+import { Content } from './content';
 
 interface CreateJobApplicationSuccessProps {
   form: UseFormReturn<z.output<typeof JobApplicationFormSchema>>;
+  setContent: React.Dispatch<React.SetStateAction<Content>>;
 }
 
-export default function CreateJobApplicationSuccess({ form }: CreateJobApplicationSuccessProps) {
+export default function CreateJobApplicationSuccess({ form, setContent }: CreateJobApplicationSuccessProps) {
   const jobBoardId = form.getValues('jobBoardId');
   const jobBoardListId = form.getValues('jobBoardListId');
 
@@ -29,10 +31,15 @@ export default function CreateJobApplicationSuccess({ form }: CreateJobApplicati
           View in Job Findr!
         </Button>
       </div>
-      <div className="flex justify-end p-4">
-        <Button onClick={window.close} className="">
-          Close
+      <div className="flex justify-between">
+        <Button
+          onClick={() => {
+            setContent('form');
+            form.reset();
+          }}>
+          Keep applying
         </Button>
+        <Button onClick={window.close}>Close</Button>
       </div>
     </div>
   );
