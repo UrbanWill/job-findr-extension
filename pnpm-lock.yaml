@@ -54,8 +54,8 @@ dependencies:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.4.1)
   webextension-polyfill:
-    specifier: 0.10.0
-    version: 0.10.0
+    specifier: 0.12.0
+    version: 0.12.0
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -6475,8 +6475,8 @@ packages:
       graceful-fs: 4.2.11
     dev: true
 
-  /webextension-polyfill@0.10.0:
-    resolution: {integrity: sha512-c5s35LgVa5tFaHhrZDnr3FpQpjj1BB+RXhLTYUxGqBVN460HkbM8TBtEqdXWbpTKfzwCcjAZVF7zXCYSKtcp9g==}
+  /webextension-polyfill@0.12.0:
+    resolution: {integrity: sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==}
     dev: false
 
   /webidl-conversions@7.0.0:
