@@ -52,7 +52,7 @@ dependencies:
     version: 2.2.2
   tailwindcss-animate:
     specifier: ^1.0.7
-    version: 1.0.7(tailwindcss@3.4.1)
+    version: 1.0.7(tailwindcss@3.4.7)
   webextension-polyfill:
     specifier: 0.10.0
     version: 0.10.0
@@ -167,8 +167,8 @@ devDependencies:
     specifier: 1.69.5
     version: 1.69.5
   tailwindcss:
-    specifier: ^3.4.1
-    version: 3.4.1
+    specifier: ^3.4.7
+    version: 3.4.7
   ts-loader:
     specifier: 9.5.0
     version: 9.5.0(typescript@5.2.2)(webpack@5.89.0)
@@ -5965,16 +5965,16 @@ packages:
       '@babel/runtime': 7.24.1
     dev: false
 
-  /tailwindcss-animate@1.0.7(tailwindcss@3.4.1):
+  /tailwindcss-animate@1.0.7(tailwindcss@3.4.7):
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
     dependencies:
-      tailwindcss: 3.4.1
+      tailwindcss: 3.4.7
     dev: false
 
-  /tailwindcss@3.4.1:
-    resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}
+  /tailwindcss@3.4.7:
+    resolution: {integrity: sha512-rxWZbe87YJb4OcSopb7up2Ba4U82BoiSGUdoDr3Ydrg9ckxFS/YWsvhN323GMcddgU65QRy7JndC7ahhInhvlQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
